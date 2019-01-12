@@ -103,9 +103,6 @@ for ip in ${lines[@]}; do
             do_processing=1;
         else
             do_processing=0;
-#Kfuji-Edit
-			exit 100
-#Kfuji-Edit
         fi
     fi
 
@@ -170,40 +167,33 @@ done
 # - - - - - END_OF_FUNCTIONS - - - - - #
 
 # - - - - - START_OF_SANITISATION - - - - - 
-#Check user input and exit if supplied with more than one argument.
 if [ $# -gt 1 ];
 	then
 	echo "Too many arguments. Use -h for help."
 	exit 1 #Failure
 fi
 
-#Check user iput and print helpful messages if they input correctly.
-if [[ $1 =~ ^(-h|-help|--help)$ ]];
+if [ $1 = '-h|-help|--help|-?|?' ];
 then
-	echo ""
-	echo "Welcome to A.I.S.T.T please enter a valid Network Address/CIDRmask to begin."
+	echo "Welcome to A.I.S.T.T please enter a valid IP/CIDRmask to begin."
 	echo "Examples: 10.0.50.96/29 192.168.25.96/28 172.17.17.32/27"
 	echo "You can scan subnets down to a /30 and up to a /24"
-	echo "Ensure you enter the Network Address of the subnet or you will ping outside of the subnet."
-	echo ""
 	exit 101 # Help Success
 fi
 
-#Check user input for "a valid Network Address/CIDRmask between /24 and /30" and exit with helpful messages if anything else.
+
 if [[ ! $1 =~ ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([2][4-9]|30))$ ]];
 then
-	echo "You did not enter a valid Network Address/CIDRmask between /24 and /30. Use -h for help."
+	echo "You did not enter a valid x.x.x.x IP/cidrmask between /24 and /30. Use -h for help."
 	exit 1 #Failure
 fi
 
 # - - - - - END_OF_SANITISATION - - - - - #
 
-# - - - - - START_OF_MAIN  - - - - - 
-echo ""
+# - - - - - START_OF_MAIN  - - - - - #
 echo "Testing Subnet $1"
 echo ""
-
-			#Calculate and store all the individual IP address within the subnet the user input, removing the network address and broadcast address.
+		
 	list_of_ips=$(ip_calc_func -f $1 | sed '1d;$d')
 
 echo "Subnet Includes:"
@@ -211,7 +201,6 @@ echo "$list_of_ips"
 echo ""
 echo "Found ICMP Service on Hosts:"
 
-			#Run a background process that pings each IP within the subnet and greps for and stores the IP's that test positive for ICMP service. 
 	list_of_up_ips=$(isup_func $list_of_ips | grep UP | grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' )
 
 	if [ "$list_of_up_ips" = "" ]
@@ -224,12 +213,11 @@ echo "Found ICMP Service on Hosts:"
 echo "$list_of_up_ips"
 echo ""
 				
-			#Run a final full length pingtest against all the nodes that where found to respond to ICMP.
 	multiping_func $list_of_up_ips		
 
 echo "Pingtest Result:"
 		
-wait # Wait for all Background/related process to finish.
+wait
 	
 echo ""
 
