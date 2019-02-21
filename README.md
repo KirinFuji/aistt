@@ -12,7 +12,7 @@ Automated ICMP Subnet Testing Tool is a tool designed to automate the task of fi
 
 4. mv ./aistt ./.aistt-dir
 
-5. ln -s ./.aistt_dir/aistt
+5. ln -s ./.aistt-dir/aistt
 
 # Or all at once!: 
 
