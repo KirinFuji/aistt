@@ -7,6 +7,7 @@
 
 # - - - - - START_OF_FUNCTIONS  - - - - - #
 
+#Function to calculate the IP's contained within a CIDR block.
 ip_calc_func()
 {
 #Huge thanks to the following for the code inside of ip_calc_func:
@@ -129,9 +130,11 @@ exit
 done
 }
 
+#Function that runs the other function, in the background. This causes isup_func to complete near instantaniously as all it was supposed to do was spawn isup_func_func in the background. This was the key to testing each IP in the subnet simultaniously.
 isup_func()
 {
 
+#Function to ping an IP a few times to see if its up.
     isup_func_func()
 	
         {
@@ -157,7 +160,8 @@ do
 done
 }
 
-multiping_func()
+#Spawns 1 background process per ip, to longtest each each ip that was found to be pingable with the previous short test.
+multiping_func() 
 {
 for arg
 do
@@ -211,7 +215,7 @@ echo "$list_of_ips"
 echo ""
 echo "Found ICMP Service on Hosts:"
 
-			#Run a background process that pings each IP within the subnet and greps for and stores the IP's that test positive for ICMP service. 
+			#Run a background process that pings each IP within the subnet and stores the IP's that test positive for ICMP service. 
 	list_of_up_ips=$(isup_func $list_of_ips | grep UP | grep -E -o '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)' )
 
 	if [ "$list_of_up_ips" = "" ]
