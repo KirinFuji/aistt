@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Written By KirinFuji A LongTimeAgo ♥
+# Written By KirinFuji With Love A LongTimeAgo ♥
 
 #Automated ICMP Subnet Testing Tool (A.I.S.T.T)
 #Please use resposibily. You really should not use this on a subnet larger than /27.
