@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Written By KirinFuji A LongTimeAgo ♥
+
 #Automated ICMP Subnet Testing Tool (A.I.S.T.T)
 #Please use resposibily. You really should not use this on a subnet larger than /27.
 #Tool will spawn many background processes as it is designed to be FAST.
