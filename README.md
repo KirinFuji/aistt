@@ -1,6 +1,11 @@
+
 # A.I.S.T.T
 
 Automated ICMP Subnet Testing Tool is a tool designed to automate the task of finding what nodes on a subnet respond and then testing the responsive nodes further to gather data.
+
+Code is sloppy and old but it till works in 2020 and is useful for people who work in a NOC and constantly have to ping /29 /28 and /30 netblocks.
+
+
 
 # To Install:
 
@@ -8,15 +13,15 @@ Automated ICMP Subnet Testing Tool is a tool designed to automate the task of fi
 
 2. git clone https://github.com/KirinFuji/aistt.git
 
-3. chmod +x ./aistt/aistt
+3. chmod +x ./aistt/aistt.sh
 
 4. mv ./aistt ./.aistt-dir
 
-5. ln -s ./.aistt-dir/aistt
+5. ln -s ./.aistt-dir/aistt.sh aistt
 
 # Or all at once!: 
 
-mkdir -p ~/bin/ && cd ~/bin/ && git clone https://github.com/KirinFuji/aistt.git && chmod +x ./aistt/aistt && mv ./aistt ./.aistt-dir && ln -s ./.aistt-dir/aistt
+mkdir -p ~/bin/ && cd ~/bin/ && git clone https://github.com/KirinFuji/aistt.git && chmod +x ./aistt/aistt.sh && mv ./aistt ./.aistt-dir && ln -s ./.aistt-dir/aistt.sh aistt
 
 # To Run
 
