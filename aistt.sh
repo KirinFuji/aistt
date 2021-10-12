@@ -117,7 +117,7 @@ check_net_boundary() {
     for (( i = 1; i <= 4; i++ )); do
         net_octet=$(echo $net | cut -d '.' -f $i)
         mask_octet=$(echo $wildcard_mask | cut -d ' ' -f $i)
-        if [ $mask_octet -gt 0 ]; then
+        if [[ $mask_octet -gt 0 ]]; then
             if [ $(( $net_octet&$mask_octet )) -ne 0 ]; then
                 is_correct=0;
             fi
@@ -177,7 +177,7 @@ for ip in ${lines[@]}; do
         for (( i = 1; i <= 4; i++ )); do
             range=$(echo $net | cut -d '.' -f $i)
             mask_octet=$(echo $wildcard_mask | cut -d ' ' -f $i)
-            if [ $mask_octet -gt 0 ]; then
+            if [[ $mask_octet -gt 0 ]]; then
                 range="{$range..$(( $range | $mask_octet ))}";
             fi
             str="${str} $range"
