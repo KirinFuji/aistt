@@ -7,6 +7,44 @@
 #Tool will spawn many background processes as it is designed to be FAST.
 #The larger the subnet the more processes and bandwidth will be used.
 
+# - - - - - START_OF_DATA_ARRAYS  - - - - - #
+
+conversion_array=(
+0.0.0.0
+128.0.0.0
+192.0.0.0
+224.0.0.0
+240.0.0.0
+248.0.0.0
+252.0.0.0
+254.0.0.0
+255.0.0.0
+255.128.0.0
+255.192.0.0
+255.224.0.0
+255.240.0.0
+255.248.0.0
+255.252.0.0
+255.254.0.0
+255.255.0.0
+255.255.128.0
+255.255.192.0
+255.255.224.0
+255.255.240.0
+255.255.248.0
+255.255.252.0
+255.255.254.0
+255.255.255.0
+255.255.255.128
+255.255.255.192
+255.255.255.224
+255.255.255.240
+255.255.255.248
+255.255.255.252
+255.255.255.254
+255.255.255.255)
+
+
 # - - - - - START_OF_FUNCTIONS  - - - - - #
 
 #Function to calculate the IP's contained within a CIDR block.
@@ -205,12 +243,22 @@ fi
 # - - - - - END_OF_SANITISATION - - - - - #
 
 # - - - - - START_OF_MAIN  - - - - - 
+
+host_input=$(echo $1 | cut -d '/' -f 1)
+cidr_input=$(echo $1 | cut -d '/' -f 2)
+netmask=${conversion_array[$cidr_input]}
+
+IFS=. read -r i1 i2 i3 i4 <<< $host_input
+IFS=. read -r m1 m2 m3 m4 <<< $netmask
+network_addr=$(printf "%d.%d.%d.%d\n" "$((i1 & m1))" "$((i2 & m2))" "$((i3 & m3))" "$((i4 & m4))")
+
+
 echo ""
-echo "Testing Subnet $1"
+echo "Testing Subnet $network_addr/$cidr_input"
 echo ""
 
 			#Calculate and store all the individual IP address within the subnet the user input, removing the network address and broadcast address.
-	list_of_ips=$(ip_calc_func -f $1 | sed '1d;$d')
+	list_of_ips=$(ip_calc_func -f $network_addr/$cidr_input | sed '1d;$d')
 
 echo "Subnet Includes:"
 echo "$list_of_ips"
