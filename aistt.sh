@@ -272,7 +272,7 @@ netmask=${conversion_array[$cidr_input]}
 
 IFS=. read -r i1 i2 i3 i4 <<< $host_input
 IFS=. read -r m1 m2 m3 m4 <<< $netmask
-network_addr=$(printf "%d.%d.%d.%d\n" "$((i1 & m1))" "$((i2 & m2))" "$((i3 & m3))" "$((i4 & m4))")
+network_addr=$(printf "%d.%d.%d.%d" "$((i1 & m1))" "$((i2 & m2))" "$((i3 & m3))" "$((i4 & m4))")
 
 
 echo ""
