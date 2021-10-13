@@ -204,7 +204,7 @@ isup_func()
         for arg
         do
 		
-			ping -c 4 "$arg" > /dev/null
+			/bin/ping -c 4 "$arg" > /dev/null
 
 				if [ $? -eq 0 ];
 				then
@@ -228,7 +228,7 @@ multiping_func()
 for arg
 do
 
-	ping $arg -c 100 -i 0.20 | grep -v bytes &
+	/bin/ping $arg -c 100 -i 0.20 | grep -v bytes &
 
 done
 }
