@@ -278,7 +278,7 @@ network_addr=$(printf "%d.%d.%d.%d" "$((i1 & m1))" "$((i2 & m2))" "$((i3 & m3))"
 
 
 echo ""
-printf "Testing Subnet $network_addr/$cidr_input"
+printf "Testing Subnet $network_addr/$cidr_input\n"
 echo ""
 
 			#Calculate and store all the individual IP address within the subnet the user input, removing the network address and broadcast address.
