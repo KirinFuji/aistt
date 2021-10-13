@@ -270,7 +270,7 @@ host_input=$(echo $1 | cut -d '/' -f 1)
 cidr_input=$(echo $1 | cut -d '/' -f 2)
 netmask=${conversion_array[$cidr_input]}
 
-printf "Debug:\n host_input:$host_input\n cidr_input:$cidr_input\n netmask:$netmask"
+#printf "Debug:\n host_input:$host_input\n cidr_input:$cidr_input\n netmask:$netmask"
 
 IFS=. read -r i1 i2 i3 i4 <<< "$host_input"
 IFS=. read -r m1 m2 m3 m4 <<< "$netmask"
