@@ -270,13 +270,15 @@ host_input=$(echo $1 | cut -d '/' -f 1)
 cidr_input=$(echo $1 | cut -d '/' -f 2)
 netmask=${conversion_array[$cidr_input]}
 
-IFS=. read -r i1 i2 i3 i4 <<< $host_input
-IFS=. read -r m1 m2 m3 m4 <<< $netmask
+printf "Debug:\n host_input:$host_input\n cidr_input:$cidr_input\n netmask:$netmask"
+
+IFS=. read -r i1 i2 i3 i4 <<< "$host_input"
+IFS=. read -r m1 m2 m3 m4 <<< "$netmask"
 network_addr=$(printf "%d.%d.%d.%d" "$((i1 & m1))" "$((i2 & m2))" "$((i3 & m3))" "$((i4 & m4))")
 
 
 echo ""
-echo "Testing Subnet $network_addr/$cidr_input"
+printf "Testing Subnet $network_addr/$cidr_input"
 echo ""
 
 			#Calculate and store all the individual IP address within the subnet the user input, removing the network address and broadcast address.
